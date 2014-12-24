@@ -11,9 +11,9 @@ module Rich
 
       @types = RichFile.select('owner_type, owner_type as name').group(:owner_type)
 
-
+      @type = params[:type]
       find_items()
-      # @type = params[:type]
+      
 
       # if(params[:scoped] == 'true')
       #   if(@type == "image")
@@ -40,7 +40,8 @@ module Rich
     end
 
     def type
-      
+      @items = RichFile.order("created_at DESC").where("owner_type = ?", params[:type]).page params[:page]
+      render :json => @items
     end
 
     def show
