@@ -22,6 +22,7 @@ $normalText: #3bbfce;
 $dimmedText: #3bbfce;
 
 $subtle: #f3f3f3;
+$subtle: #DDD;
 $light: #888888;
 $dark: #686868;
 
@@ -74,6 +75,10 @@ $fontSizeLarge: 16px;
 
 body{
 	padding-top: $headerHeight + $margin + 1;
+}
+
+h2{
+	margin-left: $margin;
 }
 
 #legacy-form {
@@ -135,6 +140,7 @@ header {
 #view-list {
   background-image: image-url('rich/view-list.png');
 }
+
 
 // Default thumbnail view
 #types,
@@ -262,6 +268,12 @@ header {
 		background-position: 0 -32px;
 	}
 
+}
+
+#types{
+	.clickable .spinner{
+		background-image:none;
+	}
 }
 
 // Condensed list view

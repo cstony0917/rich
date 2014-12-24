@@ -23,7 +23,17 @@
   <%= f.submit("Upload") %>
 <% end %>
 </div>
-
+<h2><%= t(:types) %></h2>
+<ul id="types">
+  <li id="addTypeBlock">
+    <div id="addType" class="qq-upload-button placeholder">
+      <div class="spinner"></div>
+    </div>
+    <p><%= t(:add_a_type) %></p>
+  </li>
+  <%= render :partial => "type", :collection => @types, :as => :type %>
+</ul>
+<h2><%= t(:images) %></h2>
 <ul id="items">
   
   <li id="uploadBlock">

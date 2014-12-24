@@ -7,21 +7,27 @@ module Rich
     layout "rich/application"
 
     def index
-      @type = params[:type]
 
-      if(params[:scoped] == 'true')
-        if(@type == "image")
-          @items = RichFile.images.order("created_at DESC").where("owner_type = ? AND owner_id = ?", params[:scope_type], params[:scope_id]).page params[:page]
-        else
-          @items = RichFile.files.order("created_at DESC").where("owner_type = ? AND owner_id = ?", params[:scope_type], params[:scope_id]).page params[:page]
-        end
-      else
-        if(@type == "image")
-          @items = RichFile.images.order("created_at DESC").page params[:page]
-        else
-          @items = RichFile.files.order("created_at DESC").page params[:page]
-        end
-      end
+
+      @types = RichFile.select('owner_type, owner_type as name').group(:owner_type)
+
+
+      find_items()
+      # @type = params[:type]
+
+      # if(params[:scoped] == 'true')
+      #   if(@type == "image")
+      #     @items = RichFile.images.order("created_at DESC").where("owner_type = ? AND owner_id = ?", params[:scope_type], params[:scope_id]).page params[:page]
+      #   else
+      #     @items = RichFile.files.order("created_at DESC").where("owner_type = ? AND owner_id = ?", params[:scope_type], params[:scope_id]).page params[:page]
+      #   end
+      # else
+      #   if(@type == "image")
+      #     @items = RichFile.images.order("created_at DESC").page params[:page]
+      #   else
+      #     @items = RichFile.files.order("created_at DESC").page params[:page]
+      #   end
+      # end
 
       # stub for new file
       @rich_asset = RichFile.new
@@ -31,6 +37,10 @@ module Rich
         format.js
       end
 
+    end
+
+    def type
+      
     end
 
     def show
@@ -81,6 +91,23 @@ module Rich
     end
 
     private
+      def find_items
+        @type = params[:type]
+
+        if(params[:scoped] == 'true')
+          if(@type == "image")
+            @items = RichFile.images.order("created_at DESC").where("owner_type = ? AND owner_id = ?", params[:scope_type], params[:scope_id]).page params[:page]
+          else
+            @items = RichFile.files.order("created_at DESC").where("owner_type = ? AND owner_id = ?", params[:scope_type], params[:scope_id]).page params[:page]
+          end
+        else
+          if(@type == "image")
+            @items = RichFile.images.order("created_at DESC").page params[:page]
+          else
+            @items = RichFile.files.order("created_at DESC").page params[:page]
+          end
+        end
+      end
       # Use callbacks to share common setup or constraints between actions.
       def set_rich_file
         @rich_file = RichFile.find(params[:id])
