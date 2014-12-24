@@ -26,10 +26,15 @@
 <h2><%= t(:types) %></h2>
 <ul id="types">
   <li id="addTypeBlock">
-    <div id="addType" class="qq-upload-button placeholder">
-      <div class="spinner"></div>
+    <form>
+      <input id="new_type_name" placeholder="new type name"/>
+      <input type="submit" value="add" />
+    </form>
+<!--     <div id="addType" class="placeholder">
+
+      
     </div>
-    <p><%= t(:add_a_type) %></p>
+    <p><%= t(:add_a_type) %></p> -->
   </li>
   <%= render :partial => "type", :collection => @types, :as => :type %>
 </ul>

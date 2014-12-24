@@ -9,7 +9,13 @@ module Rich
     def index
 
 
-      @types = RichFile.select('owner_type, owner_type as name').group(:owner_type)
+      @types = RichFile.select('owner_type as name').group(:owner_type)
+              .where.not(:owner_type => params[:scope_type])
+
+      @types.push({
+        :name => params[:scope_type],
+        :id => nil
+      })
 
       @type = params[:type]
       find_items()

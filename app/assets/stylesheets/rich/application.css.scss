@@ -278,6 +278,15 @@ header {
 		padding:0;
 		text-align:center;
 	}
+	#addTypeBlock{
+		input{
+			display:block;
+		}
+		#new_type_name{
+			width:100px;
+		}		
+	}
+
 }
 
 // Condensed list view

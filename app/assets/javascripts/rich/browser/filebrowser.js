@@ -148,6 +148,10 @@ rich.Browser.prototype = {
 var browser;
 
 $(function(){
+	var redirect_to_type = function(type){
+		match = window.location.href.toString().match(/scope_type=(\w*)/i);
+		window.location = window.location.href.replace(match[1],type);
+	}
 	// hook up
 	$('body').on('click', '#types .clickable', function(e){
 		
@@ -159,8 +163,13 @@ $(function(){
 		// 	$('#items .clickable').remove();
 		// 	$('#items').append(res);
 		// });
-		match = window.location.href.toString().match(/scope_type=(\w*)/i);
-		window.location = window.location.href.replace(match[1],type);
+		redirect_to_type(type);
+	});
+
+	$('body').on('submit','#addTypeBlock form',function(e){
+		e.preventDefault();
+		var new_type_name = $('#new_type_name').val();
+		redirect_to_type(new_type_name);
 	});
 
 	
