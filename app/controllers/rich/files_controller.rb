@@ -41,7 +41,7 @@ module Rich
 
     def type
       @items = RichFile.order("created_at DESC").where("owner_type = ?", params[:type]).page params[:page]
-      render :json => @items
+      render partial: "rich/files/file", collection: @items, as: :file
     end
 
     def show

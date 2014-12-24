@@ -97,7 +97,7 @@ rich.Browser.prototype = {
 		var id = $(item).data('rich-asset-id');
 		var type = $(item).data('rich-asset-type');
 		var name = $(item).data('rich-asset-name');
-		
+	
 		
 		if($.QueryString["CKEditor"]=='picker') {
 			window.opener.assetPicker.setAsset($.QueryString["dom_id"], url, id, type);
@@ -148,6 +148,20 @@ rich.Browser.prototype = {
 var browser;
 
 $(function(){
+	// hook up
+	$('body').on('click', '#types .clickable', function(e){
+		
+		// var a = $(this).data('type');
+		var type = $(this).data('type');
+		console.log(type);
+		$.get('/rich/files/type/' + type)
+		.done(function(res){
+			// remove all prevous images
+			$('#items .clickable').remove();
+			$('#items').append(res);
+		});
+	});
+
 	
 	browser = new rich.Browser();
 	browser.initialize();
@@ -177,7 +191,7 @@ $(function(){
 	$('body').on('click', '#items li img', function(e){
 		browser.selectItem(e.target);
 	});
-	
+
 	// fluid pagination
 	$(window).scroll(function(){
 		browser.loadNextPage();
