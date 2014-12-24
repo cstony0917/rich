@@ -154,12 +154,15 @@ $(function(){
 		// var a = $(this).data('type');
 		var type = $(this).data('type');
 		console.log(type);
-		$.get('/rich/files/type/' + type)
-		.done(function(res){
-			// remove all prevous images
-			$('#items .clickable').remove();
-			$('#items').append(res);
-		});
+		// $.get('/rich/files/type/' + type)
+		// .done(function(res){
+		// 	// remove all prevous images
+		// 	$('#items .clickable').remove();
+		// 	$('#items').append(res);
+		// });
+		match = window.location.href.toString().match(/scope_type=([a-z]*)/i);
+		window.location.href = window.location.href.replace(match[1],type);
+
 	});
 
 	
