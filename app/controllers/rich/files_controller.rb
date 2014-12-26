@@ -17,6 +17,8 @@ module Rich
         :id => nil
       })
 
+      @types = @types.reverse
+
       @type = params[:type]
       find_items()
       

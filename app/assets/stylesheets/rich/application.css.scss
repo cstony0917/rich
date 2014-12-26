@@ -271,12 +271,17 @@ header {
 }
 
 #types{
-	.clickable .spinner{
-		background-image:none;
-		color:#000;
-		margin:0;
-		padding:0;
-		text-align:center;
+	.clickable{
+		&.spinner{
+			background-image:none;
+			color:#000;
+			margin:0;
+			padding:0;
+			text-align:center;
+		}
+		&.active .placeholder{
+			border:1px solid red;
+		}
 	}
 	#addTypeBlock{
 		input{
@@ -286,6 +291,7 @@ header {
 			width:100px;
 		}		
 	}
+
 
 }
 

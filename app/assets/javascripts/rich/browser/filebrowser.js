@@ -148,21 +148,34 @@ rich.Browser.prototype = {
 var browser;
 
 $(function(){
-	var redirect_to_type = function(type){
-		match = window.location.href.toString().match(/scope_type=(\w*)/i);
-		window.location = window.location.href.replace(match[1],type);
+	var get_scope_type = function(){
+		var params = window.location.href.split('&');
+		var match = null;
+		for (var i = params.length - 1; i >= 0; i--) {
+			if ( params[i].indexOf('scope_type') != -1 ){
+				match = params[i];
+			}
+		};
+		match = match.match(/scope_type=(.*)/i);
+		return match[1];
 	}
-	// hook up
-	$('body').on('click', '#types .clickable', function(e){
+	var redirect_to_type = function(type){
+		window.location = window.location.href.replace(get_scope_type(),type);
+	}
+
+	var current_type = decodeURI(get_scope_type());
 		
-		// var a = $(this).data('type');
+	// add class for current type
+	$('#types .clickable').each(function() {
 		var type = $(this).data('type');
-		// $.get('/rich/files/type/' + type)
-		// .done(function(res){
-		// 	// remove all prevous images
-		// 	$('#items .clickable').remove();
-		// 	$('#items').append(res);
-		// });
+		if(current_type == type){
+			$(this).addClass('active');
+		}
+	});
+	
+	// redirect with type select
+	$('body').on('click', '#types .clickable', function(e){
+		var type = $(this).data('type');
 		redirect_to_type(type);
 	});
 
